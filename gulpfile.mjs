@@ -1,9 +1,9 @@
 import gulp from 'gulp';
-import sass from 'gulp-sass';
+import gulpSass from 'gulp-sass';
 import imageMin from 'gulp-imagemin';
 import uglify from 'gulp-uglify';
 import fs from 'fs';
-import sassCompiler from 'sass';
+import * as sassCompiler from 'sass'; 
 
 // Caminhos dos arquivos
 const paths = {
@@ -43,9 +43,11 @@ function createFolders(done) {
 }
 
 // Tarefa de compilação SASS
+const sass = gulpSass(sassCompiler); // Mude aqui
+
 function compileSass() {
   return gulp.src(paths.sass.src)
-    .pipe(sass(sassCompiler).on('error', sass.logError))
+    .pipe(sass().on('error', sass.logError)) // Mantenha o log de erro
     .pipe(gulp.dest(paths.sass.dest));
 }
 
@@ -66,5 +68,5 @@ function compressJs() {
 // Tarefa que executa todas as tarefas acima
 const build = gulp.series(createFolders, compileSass, compressImages, compressJs);
 
-// Exporta a tarefa de build
-export { build };
+// Exporta as tarefas
+export { build, compileSass, compressImages, compressJs };

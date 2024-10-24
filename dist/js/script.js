@@ -1,0 +1,1 @@
+function showMessage(){console.log("Olá! Bem-vindo ao meu projeto Gulp.")}window.onload=function(){showMessage()};let button=document.querySelector(".button");button&&button.addEventListener("click",function(){alert("Botão clicado!")});
